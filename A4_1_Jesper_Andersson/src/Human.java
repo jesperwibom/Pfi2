@@ -11,13 +11,15 @@ public class Human {
 		return name;
 	}
 	
-	public Dog buyDog(){
-		return dog;
+	//setDog är ett lämpligare namn...
+	public void buyDog(Dog dog){
+		
 	}
 	
+	//getDog är ett lämpligare namn
 	public String getInfo(){
-		String info = "info";
-		return info;
+		
+		return dog.getDogName();
 	}
 	
 }

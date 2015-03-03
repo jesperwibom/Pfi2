@@ -7,4 +7,8 @@ public class Dog {
 		this.name = name;
 	}
 	
+	public String getDogName(){
+		return this.name;
+	}
+	
 }
