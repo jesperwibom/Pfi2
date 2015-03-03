@@ -9,6 +9,8 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class HumanDogGUI extends JFrame {
@@ -19,9 +21,9 @@ public class HumanDogGUI extends JFrame {
 	private JTextField txtInfo;
 	private JTextField txtError;
 
-	/**
-	 * Launch the application.
-	 */
+	private Human human;
+	public Dog dog;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -65,10 +67,29 @@ public class HumanDogGUI extends JFrame {
 		txtDogname.setColumns(10);
 		
 		JButton btnNewHuman = new JButton("New Human");
+		btnNewHuman.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(txtName.getText().length() > 2){
+					human = new Human(txtName.getText());
+				} else {
+					txtError.setText("Too few letters!");
+				}
+			}
+		});
 		btnNewHuman.setBounds(96, 61, 117, 29);
 		contentPane.add(btnNewHuman);
 		
 		JButton btnBuyDog = new JButton("Buy Dog");
+		btnBuyDog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(human != null){
+					dog = new Dog(txtDogname.getText());
+					human.buyDog(dog);
+				} else {
+					txtError.setText("No owner");
+				}
+			}
+		});
 		btnBuyDog.setBounds(96, 93, 117, 29);
 		contentPane.add(btnBuyDog);
 		
@@ -93,6 +114,13 @@ public class HumanDogGUI extends JFrame {
 		txtError.setColumns(10);
 		
 		JButton btnPrintInfo = new JButton("Print Info");
+		btnPrintInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(human != null){
+					txtInfo.setText(human.getInfo());
+				}
+			}
+		});
 		btnPrintInfo.setBounds(160, 132, 117, 29);
 		contentPane.add(btnPrintInfo);
 	}

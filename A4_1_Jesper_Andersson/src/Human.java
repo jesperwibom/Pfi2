@@ -13,13 +13,19 @@ public class Human {
 	
 	//setDog är ett lämpligare namn...
 	public void buyDog(Dog dog){
-		
+		this.dog = new Dog(dog.getDogName());
 	}
 	
 	//getDog är ett lämpligare namn
 	public String getInfo(){
-		
-		return dog.getDogName();
+		String info;
+		if(dog != null){
+			info = (this.name+" has a dog called "+dog.getDogName()+".");
+			
+		} else {
+			info = (this.name+" has no dog!");
+		}
+		return info;
 	}
 	
 }
