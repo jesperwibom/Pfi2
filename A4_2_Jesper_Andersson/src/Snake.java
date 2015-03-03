@@ -20,7 +20,7 @@ public class Snake extends Animal{
 		}else{
 			pos = "not poisonus";
 		}
-		String info = "The snake "+getFriendlyName()+" lat: "+latinName+" is "+pos+".";
+		String info = "The snake "+getFriendlyName()+" lat: "+getLatinName()+" is "+pos+".";
 		return info;
 	}
 }

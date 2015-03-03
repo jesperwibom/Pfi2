@@ -1,7 +1,7 @@
 
 public abstract class Animal {
-	public String latinName;
-	public String friendlyName;
+	private String latinName = "noLatinName";
+	private String friendlyName = "noName";
 	
 	public Animal(String latinName) {
 		this.latinName = latinName;
@@ -16,4 +16,10 @@ public abstract class Animal {
 	public String getFriendlyName(){
 		return this.friendlyName;
 	}
+	
+	//Detta ingår inte i klassdiagrammet men jag förstår inte annars hur jag ska få tag på latinName om det inte ska vara public/protected?
+	public String getLatinName(){
+		return this.latinName;
+	}
+	
 }
