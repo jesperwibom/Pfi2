@@ -1,7 +1,9 @@
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,14 +13,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
 
 public class DigitalClockGUI extends JFrame {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private JPanel clockPanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();
 	
-	private JTextArea clockDisplay = new JTextArea();
+	private JPanel clockDisplay = new JPanel();
+	private JLabel timeHours = new JLabel("00");
+	private JLabel timeMinutes = new JLabel("00");
 	
 	private JLabel lblHours = new JLabel("Hours:");
 	private JTextArea txtHours = new JTextArea("HH");
@@ -27,6 +35,7 @@ public class DigitalClockGUI extends JFrame {
 	private JButton btnSetAlarm = new JButton("Set alarm");
 	private JButton btnCancelAlarm = new JButton("Cancel alarm");
 	
+	ClockLogic clockLogic;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,7 +54,7 @@ public class DigitalClockGUI extends JFrame {
 	
 	private void initGUI(){
 		
-		ClockLogic clockLogic = new ClockLogic(this);
+		clockLogic = new ClockLogic(this);
 		
 		setTitle("Digital Alarm Clock");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("http://simpleicon.com/wp-content/uploads/clock-time-1.png"));
@@ -56,8 +65,16 @@ public class DigitalClockGUI extends JFrame {
 		getContentPane().add(clockPanel, BorderLayout.CENTER);
 		
 		clockPanel.setLayout(new BorderLayout());
-		clockPanel.add(buttonPanel, BorderLayout.SOUTH);
 		clockPanel.add(clockDisplay, BorderLayout.CENTER);
+		clockPanel.add(buttonPanel, BorderLayout.SOUTH);
+		
+		clockDisplay.setBackground(new Color(190,170,100));
+		
+		clockDisplay.setLayout(new FlowLayout());
+		clockDisplay.add(timeHours);
+		clockDisplay.add(timeMinutes);
+		timeHours.setFont(new Font("Myriad Pro Light", Font.PLAIN, 60));
+		timeMinutes.setFont(new Font("Myriad Pro Light", Font.PLAIN, 60));
 		
 		buttonPanel.setLayout(new FlowLayout());
 		buttonPanel.add(lblHours);
@@ -67,6 +84,7 @@ public class DigitalClockGUI extends JFrame {
 		buttonPanel.add(btnSetAlarm);
 		buttonPanel.add(btnCancelAlarm);
 		
+		
 		btnSetAlarm.setToolTipText("Activates the alarm");
 		btnCancelAlarm.setToolTipText("Cancels the alarm");
 		txtHours.setToolTipText("Sets the timer to entered number of hours");
@@ -74,23 +92,35 @@ public class DigitalClockGUI extends JFrame {
 		
 		btnSetAlarm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				System.exit(0);
+				int hours = Integer.parseInt(txtHours.getText().substring(0, 2));
+				int minutes = Integer.parseInt(txtMinutes.getText().substring(0, 2));
+				clockLogic.setAlarm(hours, minutes);
 			}
 		});
 		btnCancelAlarm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				System.exit(0);
+				clockLogic.clearAlarm();
 			}
 		});
 	}
 	
 	
-	public void setTimeOnLabel(String time){
-		
+	public void setTimeOnLabel(int hour, int minute, int second){
+		timeHours.setText(String.valueOf(hour));
+		timeMinutes.setText(String.valueOf(minute));
+		if(clockLogic.alarmSet){
+			clockDisplay.setBackground(new Color(240,140,100));
+		} else {
+			clockDisplay.setBackground(new Color(190,170,100));
+		}
 	}
 	
+	public void alarmSet(int hours, int minutes){
+		//toggle alarm off if on?
+		//set alarm if off
+	}
 	
-	public void alarm(boolean activate){
+	public void clearAlarm(){
 		
 	}
 
