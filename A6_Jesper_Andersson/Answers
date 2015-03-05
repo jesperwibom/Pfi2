@@ -1,0 +1,9 @@
+1. Malmö C -> LundC
+2. man lägger till &NoOf=5 på slutet
+http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?cmdaction=next&selPointFr=0|80000|0&selPointTo=0|81216|0&NoOf=5
+3.1. <Journeys> samlar alla funna resor med de parametrar man specificerat
+3.2. <Journey> beskriver en specifik resa och innehåller alla de egenskaper som utgör en sådan
+3.3. <RouteLinks> innehåller alla olika routlinks möjliga för en resa, dvs hur resenären kan ta sig till en station genom alternativa rutter
+3.4 <RouteLink> innebär ett sådant alternativ
+4. <NoOfChanges> vilket är placerad i <Journey>
+5. <CO2value> som befinner sig i <Journey> finns inte implementerat i APIet
