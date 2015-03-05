@@ -18,13 +18,11 @@ public class ClockLogic implements ClockInterface{
 			alarmHour = hours;
 			alarmMinute = minutes;
 			alarmSet = true;
-			clockGUI.alarmSet(alarmHour, alarmMinute);
 		}
 	}
 	
 	public void clearAlarm(){
 		alarmSet = false;
-		clockGUI.clearAlarm();
 	}
 	
 	public void update(int hourIn, int minuteIn, int secondIn){

@@ -124,14 +124,5 @@ public class DigitalClockGUI extends JFrame {
 		}
 		return strTime;
 	}
-	
-	public void alarmSet(int hours, int minutes){
-		//toggle alarm off if on?
-		//set alarm if off
-	}
-	
-	public void clearAlarm(){
-		
-	}
 
 }
