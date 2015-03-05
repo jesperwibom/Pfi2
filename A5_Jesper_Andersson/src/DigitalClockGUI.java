@@ -106,13 +106,23 @@ public class DigitalClockGUI extends JFrame {
 	
 	
 	public void setTimeOnLabel(int hour, int minute, int second){
-		timeHours.setText(String.valueOf(hour));
-		timeMinutes.setText(String.valueOf(minute));
+		timeHours.setText(format(hour));
+		timeMinutes.setText(format(minute));
 		if(clockLogic.alarmSet){
 			clockDisplay.setBackground(new Color(240,140,100));
 		} else {
 			clockDisplay.setBackground(new Color(190,170,100));
 		}
+	}
+	
+	private String format(int time){
+		String strTime;
+		if (time < 10){
+			strTime = "0"+String.valueOf(time);
+		} else {
+			strTime = String.valueOf(time);
+		}
+		return strTime;
 	}
 	
 	public void alarmSet(int hours, int minutes){
