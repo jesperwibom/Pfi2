@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 
@@ -59,7 +60,7 @@ public class SearchGUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 6, 438, 165);
+		panel.setBounds(6, 6, 438, 172);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -72,16 +73,8 @@ public class SearchGUI extends JFrame {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Station> foundStations = new ArrayList<Station>();
-				txtrResult.setText("");
 				if(txtSearch != null){
 					startThread(txtSearch.getText());
-					foundStations.addAll(Parser.getStationsFromURL(txtSearch.getText()));
-				}
-				for(Station s: foundStations){
-					String lat = String.valueOf(s.getLatitude());
-					String lon = String.valueOf(s.getLongitude());
-					txtrResult.append("#"+s.getStationNbr()+" "+s.getStationName()+": lat: "+lat+" lon: "+lon+"\n");
 				}
 			}
 		});
@@ -90,7 +83,7 @@ public class SearchGUI extends JFrame {
 		
 		
 		txtrResult.setText("Result");
-		txtrResult.setBounds(6, 37, 426, 122);
+		txtrResult.setBounds(6, 37, 426, 129);
 		panel.add(txtrResult);
 		
 		JPanel panel_1 = new JPanel();
@@ -113,17 +106,8 @@ public class SearchGUI extends JFrame {
 		JButton btnSearch_1 = new JButton("Search");
 		btnSearch_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtrResult_1.setText("");
-				Journeys journeys;
 				if(txtFrom != null && txtTo != null){
-					String searchURL = Constants.getURL(txtFrom.getText(),txtTo.getText(),1);
-					journeys = Parser.getJourneys(searchURL);
-					for (Journey j : journeys.getJourneys()) {
-						txtrResult_1.append(j.getStartStation()+" -> "+j.getEndStation()+"\n");
-						String dep = format(j.getDepDateTime().get(Calendar.HOUR_OF_DAY))+":"+format(j.getDepDateTime().get(Calendar.MINUTE));
-						String arr = format(j.getArrDateTime().get(Calendar.HOUR_OF_DAY))+":"+format(j.getArrDateTime().get(Calendar.MINUTE));
-						txtrResult_1.append("Avgår: "+dep+" -> Anländer: "+arr);
-					}
+					startThread(txtFrom.getText(),txtTo.getText());
 				}
 			}
 		});
@@ -148,22 +132,35 @@ public class SearchGUI extends JFrame {
 	
 	private void startThread(String search){
 		txtrResult.setText("...");
-		Thread thread = new SearchThread(search);
+		Thread thread = new SearchThread(this, search);
+		thread.setName("Station search");
 		thread.start();
 	}
 	
 	private void startThread(String from, String to){
 		txtrResult_1.setText("...");
-		Thread thread = new SearchThread(from, to);
+		Thread thread = new SearchThread(this,from, to);
+		thread.setName("Journey search");
 		thread.start();
 	}
 	
-	private void setStationText(){
-		
+	public void setStationText(List<Station> stations){
+		txtrResult.setText("");
+		for(Station s: stations){
+			String lat = String.valueOf(s.getLatitude());
+			String lon = String.valueOf(s.getLongitude());
+			txtrResult.append("#"+s.getStationNbr()+" "+s.getStationName()+": lat: "+lat+" lon: "+lon+"\n");
+		}
 	}
 	
-	private void setJourneyText(){
-		
+	public void setJourneyText(Journey j){
+		txtrResult_1.setText("");
+		txtrResult_1.append(j.getStartStation()+" -> "+j.getEndStation()+" (Linje "+j.getLineOnFirstJourney()+")\n");
+		String dep = format(j.getDepDateTime().get(Calendar.HOUR_OF_DAY))+":"+format(j.getDepDateTime().get(Calendar.MINUTE));
+		String arr = format(j.getArrDateTime().get(Calendar.HOUR_OF_DAY))+":"+format(j.getArrDateTime().get(Calendar.MINUTE));
+		txtrResult_1.append("Avgår: "+dep+" -> Anländer: "+arr+" (Restid: "+j.getTravelMinutes()+"min)\n");
+		txtrResult_1.append("----------\nBeräknad avg: "+j.getDepTimeDeviation()+"\nBeräknad ank: "+j.getArrTimeDeviation());
+		txtrResult_1.append("\nByten: "+j.getNoOfChanges()+" Zoner: "+j.getNoOfZones());
 	}
 	
 }
