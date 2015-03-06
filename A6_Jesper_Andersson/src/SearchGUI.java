@@ -73,8 +73,9 @@ public class SearchGUI extends JFrame {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Station> foundStations = new ArrayList<Station>();
+				txtrResult.setText("");
 				if(txtSearch != null){
-					txtrResult.setText("");
+					startThread(txtSearch.getText());
 					foundStations.addAll(Parser.getStationsFromURL(txtSearch.getText()));
 				}
 				for(Station s: foundStations){

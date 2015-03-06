@@ -18,7 +18,7 @@ public class SearchThread extends Thread{
 		if(search == null){
 			
 		} else {
-			
+			//SearchGUI.setStationText();
 		}
 	}
 }
