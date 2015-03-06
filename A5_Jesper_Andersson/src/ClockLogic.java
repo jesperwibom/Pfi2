@@ -1,13 +1,13 @@
 
 public class ClockLogic implements ClockInterface{
 	
-	private DigitalClockGUI clockGUI;
-	private int alarmHour;
-	private int alarmMinute;
+	private ClockGUI clockGUI;
+	public int alarmHour;
+	public int alarmMinute;
 	public boolean alarmSet;
 	
-	public ClockLogic(DigitalClockGUI clockIn){
-		this.clockGUI = clockIn;
+	public ClockLogic(ClockGUI clockGUI2){
+		this.clockGUI = clockGUI2;
 		Thread cThread = new ClockThread(this);
 		cThread.setName("ClockUpdateThread");
 		cThread.start();
