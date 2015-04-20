@@ -187,7 +187,7 @@ public class Parser {
 				l.setDepTimeDeviation(depTimeDeviation);
 				l.setRunNo(runNo);
 				l.setLineType(lineTypeName);
-				l.setTowards(towards);
+				l.setDestination(towards);
 				
 				lines.addLine(l);
 				//Ok next Line element

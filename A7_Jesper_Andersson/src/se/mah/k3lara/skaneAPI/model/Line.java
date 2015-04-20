@@ -7,7 +7,7 @@ public class Line {
 	private Calendar depTime;
 	private String depTimeDeviation;
 	private String lineType;
-	private String towards;
+	private String destination;
 	private String runNo;
 	
 	
@@ -37,11 +37,11 @@ public class Line {
 	public void setLineType(String lineType) {
 		this.lineType = lineType;
 	}
-	public String getTowards() {
-		return towards;
+	public String getDestination() {
+		return destination;
 	}
-	public void setTowards(String towards) {
-		this.towards = towards;
+	public void setDestination(String towards) {
+		this.destination = towards;
 	}
 	public String getRunNo() {
 		return runNo;
