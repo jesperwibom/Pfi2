@@ -3,9 +3,14 @@ package se.mah.k3lara.skaneAPI.model;
 import java.util.Calendar;
 
 public class Line {
-	private String line;
+	private String line;	//lineNo
 	private Calendar depTime;
 	private String depTimeDeviation;
+	private String lineType;
+	private String towards;
+	private String runNo;
+	
+	
 	public Line() {
 	}
 	public String getLine() {
@@ -26,6 +31,26 @@ public class Line {
 	public void setDepTimeDeviation(String depTimeDeviation) {
 		this.depTimeDeviation = depTimeDeviation;
 	}
+	public String getLineType() {
+		return lineType;
+	}
+	public void setLineType(String lineType) {
+		this.lineType = lineType;
+	}
+	public String getTowards() {
+		return towards;
+	}
+	public void setTowards(String towards) {
+		this.towards = towards;
+	}
+	public String getRunNo() {
+		return runNo;
+	}
+	public void setRunNo(String runNo) {
+		this.runNo = runNo;
+	}
+	
+	
 	
 	//More methods here for the rest of the tags
 	//And perhaps some special methods ????
