@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.util.Calendar;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
@@ -73,13 +74,13 @@ public class GUI extends JFrame {
 		JLabel lblLinje = new JLabel("Linje");
 		lblLinje.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		lblLinje.setForeground(Color.WHITE);
-		lblLinje.setBounds(16, 46, 41, 16);
+		lblLinje.setBounds(12, 46, 41, 16);
 		contentPane.add(lblLinje);
 		
 		JLabel lblDestination = new JLabel("Destination");
 		lblDestination.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		lblDestination.setForeground(Color.WHITE);
-		lblDestination.setBounds(60, 46, 142, 16);
+		lblDestination.setBounds(52, 46, 142, 16);
 		contentPane.add(lblDestination);
 		
 		JLabel lblAvgar = new JLabel("Avgår");
@@ -95,7 +96,7 @@ public class GUI extends JFrame {
 		txtLinje.setForeground(new Color(255, 153, 0));
 		txtLinje.setText("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16");
 		txtLinje.setBackground(Color.BLACK);
-		txtLinje.setBounds(26, 69, 18, 280);
+		txtLinje.setBounds(20, 69, 18, 280);
 		contentPane.add(txtLinje);
 		
 		txtDestination = new JTextArea();
@@ -104,7 +105,7 @@ public class GUI extends JFrame {
 		txtDestination.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
 		txtDestination.setForeground(new Color(255, 153, 0));
 		txtDestination.setBackground(new Color(0, 0, 0));
-		txtDestination.setBounds(60, 69, 170, 280);
+		txtDestination.setBounds(50, 69, 185, 280);
 		contentPane.add(txtDestination);
 		
 		txtAvgar = new JTextArea();
@@ -113,7 +114,7 @@ public class GUI extends JFrame {
 		txtAvgar.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
 		txtAvgar.setForeground(new Color(255, 153, 0));
 		txtAvgar.setBackground(new Color(0, 0, 0));
-		txtAvgar.setBounds(242, 69, 44, 280);
+		txtAvgar.setBounds(246, 69, 44, 280);
 		contentPane.add(txtAvgar);
 		
 		
@@ -133,11 +134,73 @@ public class GUI extends JFrame {
 		txtDestination.setText(null);
 		txtAvgar.setText(null);
 		
+		int hour = 0;
+		int minute = 0;
+		String formatHour = "00";
+		String formatMinute = "00";
+		
 		for (Line line : currentLines.getLines()){
+			
+			
+			
+			hour = line.getDepTime().get(Calendar.HOUR_OF_DAY);
+			minute = line.getDepTime().get(Calendar.MINUTE);
+			
+			minute += Integer.parseInt(line.getDepTimeDeviation());
+			
+			
+			if (minute < 10){
+				formatMinute = "0"+minute;
+			}
+			
+			else if (minute > 59){
+				
+				int fixedMinute = minute - 60;
+				hour += 1;
+				
+				if(fixedMinute < 10){
+					formatMinute = "0"+fixedMinute;
+				} 
+				
+				else {
+					formatMinute = ""+fixedMinute;
+				}
+				
+			} 
+			
+			else {
+				formatMinute = ""+minute;
+			}
+			
+			
+			
+			if(hour < 10){
+				formatHour = "0"+hour;
+			}
+			
+			else if (hour > 23){
+				
+				int fixedHour = hour - 24;
+				
+				if(fixedHour < 10){
+					formatHour = "0"+fixedHour;
+				}
+				
+				else {
+					formatHour = ""+fixedHour;
+				}
+				
+			}
+			
+			else {
+				formatHour = ""+hour;
+			}
+			
 			
 			
 			txtLinje.append(line.getLine()+"\n");
 			txtDestination.append(line.getDestination()+"\n");
+			txtAvgar.append(formatHour+":"+formatMinute+"\n");
 		}
 	}
 	

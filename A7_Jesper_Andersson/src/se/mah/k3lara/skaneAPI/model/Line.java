@@ -51,6 +51,7 @@ public class Line {
 	}
 	
 	
+	//getTimeToDeparture
 	
 	//More methods here for the rest of the tags
 	//And perhaps some special methods ????
