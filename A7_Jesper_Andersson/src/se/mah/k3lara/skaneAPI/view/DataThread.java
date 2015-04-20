@@ -1,4 +1,4 @@
-package jesper.skaneAPI.GUI;
+package se.mah.k3lara.skaneAPI.view;
 
 public class DataThread implements Runnable{
 
