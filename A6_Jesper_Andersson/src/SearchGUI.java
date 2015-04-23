@@ -131,14 +131,14 @@ public class SearchGUI extends JFrame {
 	}
 	
 	private void startThread(String search){
-		txtrResult.setText("...");
+		txtrResult.setText("searching");
 		Thread thread = new SearchThread(this, search);
 		thread.setName("Station search");
 		thread.start();
 	}
 	
 	private void startThread(String from, String to){
-		txtrResult_1.setText("...");
+		txtrResult_1.setText("searching");
 		Thread thread = new SearchThread(this,from, to);
 		thread.setName("Journey search");
 		thread.start();
